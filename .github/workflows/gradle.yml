@@ -28,7 +28,7 @@ jobs:
       run: docker run --rm -u gradle -v "$PWD":/home/gradle/project -w /home/gradle/project gradle gradle build
 
     - name: run SonarScan
-      run: docker run --name scan --rm -e SONAR_HOST_URL="http://localhost:9000" -e SONAR_SCANNER_OPTS="-Dsonar.projectKey=maven-shit" -e SONAR_LOGIN="sqp_b12b6611d3630863d9c4292bfb647575cb06ae84" -v "admin123:/usr/src" --net=host sonarsource/sonar-scanner-cli
+      run: docker run --name scan --rm -e SONAR_HOST_URL="http://localhost:9000" -e SONAR_SCANNER_OPTS="-Dsonar.projectKey=maven-shit" -e SONAR_LOGIN="sqp_b12b6611d3630863d9c4292bfb647575cb06ae84" -v "$PWD:/usr/src" --net=host sonarsource/sonar-scanner-cli
       
             
       
