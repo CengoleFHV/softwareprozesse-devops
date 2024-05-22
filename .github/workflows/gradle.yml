@@ -24,8 +24,8 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: test Docker
-      run: docker run hello-world
+    - name: run Gradle Docker
+      run: docker run --rm -u gradle -v "$PWD":/home/gradle/project -w /home/gradle/project gradle gradle build
       
             
       
