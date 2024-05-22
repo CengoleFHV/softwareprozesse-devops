@@ -13,8 +13,8 @@ public class Library {
     public boolean guessNumber(int number) {
         if (number == 5) {
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 }
