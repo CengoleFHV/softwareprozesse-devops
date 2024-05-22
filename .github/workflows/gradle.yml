@@ -36,7 +36,7 @@ jobs:
            docker run --name scan \
                       --rm \
                       -e SONAR_HOST_URL="http://localhost:9000" \
-                      -e SONAR_SCANNER_OPTS="-Dsonar.projectKey=maven-shit -Dsonar.sources=src/main" \
+                      -e SONAR_SCANNER_OPTS="-Dsonar.projectKey=maven-shit -Dsonar.sources=lib/src/main" \
                       -e SONAR_LOGIN="sqp_b12b6611d3630863d9c4292bfb647575cb06ae84" \
                       -v "$PWD:/usr/src" \
                       --net=host \
