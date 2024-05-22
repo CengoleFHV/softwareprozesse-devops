@@ -22,20 +22,25 @@ jobs:
       contents: read
 
     steps:
+    - run: |
+          docker run --rm -v "$PWD":/project bash:latest chown --recursive $(id -u):$(id -g) /project
+      name: Reset permissions
+      
     - uses: actions/checkout@v4
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
-      with:
-        java-version: '17'
-        distribution: 'temurin'
+    
+    - name: run Gradle Docker
+      run: docker run --rm -u gradle -v "$PWD":/home/gradle/project -w /home/gradle/project gradle gradle build
 
-    # Configure Gradle for optimal use in GiHub Actions, including caching of downloaded dependencies.
-    # See: https://github.com/gradle/actions/blob/main/setup-gradle/README.md
-    - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
-
-    - name: Make gradlew executable FUCK YOU GRADLE
-      run: chmod +x ./gradlew
-
-    - name: Build with Gradle Wrapper
-      run: ./gradlew build
+    - name: run SonarScan
+      run: |
+           docker run --name scan \
+                      --rm \
+                      -e SONAR_HOST_URL="http://localhost:9000" \
+                      -e SONAR_SCANNER_OPTS="-Dsonar.projectKey=maven-shit -Dsonar.sources=lib/src/main" \
+                      -e SONAR_LOGIN="sqp_b12b6611d3630863d9c4292bfb647575cb06ae84" \
+                      -v "$PWD:/usr/src" \
+                      --net=host \
+                      sonarsource/sonar-scanner-cli
+      
+            
+      
