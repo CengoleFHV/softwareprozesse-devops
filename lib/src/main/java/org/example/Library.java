@@ -11,10 +11,6 @@ public class Library {
     }
 
     public boolean guessNumber(int number) {
-        if (number == 5) {
-            return true;
-        }
-
-        return false;
+        return number == 5;
     }
 }
